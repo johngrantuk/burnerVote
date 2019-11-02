@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 // import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
+import { HashRouter, Link, Route } from 'react-router-dom'
 // <App />,
 
 const About = () => (
@@ -21,7 +21,7 @@ const Profile = ({match}) => (
 // <Route exact path="/" component={App} />
 
 ReactDOM.render(
-  <Router>
+  <HashRouter basename='/'>
       <div>
         <aside>
           <Link to={`/`}>Home</Link>
@@ -30,12 +30,12 @@ ReactDOM.render(
 
         <main>
           <Route exact path="/" component={App} />
-          <Route exact path="/:address" component={Profile} />
           <Route path="/home" component={App} />
           <Route path="/about" component={About} />
+          <Route exact path="/profile/:address" component={Profile} />
         </main>
       </div>
-  </Router>,
+  </HashRouter>,
   document.getElementById('root')
 );
 
