@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import getWeb3 from "./utils/getWeb3";
 
-import "./App.css";
+// import "./App.css";
+import "./black-dashboard/assets/css/black-dashboard-react.css";
+import "./black-dashboard/assets/css/nucleo-icons.css";
+import AdminNavbar from "./black-dashboard/components/Navbars/AdminNavbar.jsx";
 
 class App extends Component {
   state = { storageValue: 0, web3: null, accounts: null, contract: null };
@@ -54,7 +57,12 @@ class App extends Component {
     }
     return (
       <div className="App">
+        <AdminNavbar/>
         <h1>Good to Go!</h1>
+          <h3>
+    Fancy display heading
+    <small class="text-muted">With faded secondary text</small>
+  </h3>
         <p>Your Truffle Box is installed and ready.</p>
         <h2>Smart Contract Example</h2>
         <p>
