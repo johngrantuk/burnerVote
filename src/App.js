@@ -13,12 +13,14 @@ class App extends Component {
   state = { storageValue: 0, web3: null, accounts: null, contract: null };
 
   constructor(props) {
+    console.log('Constructor...');
     super(props);
     this.addToContract = this.addToContract.bind(this);
   }
 
   componentDidMount = async () => {
     try {
+      console.log('DidMount...');
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
 
@@ -29,13 +31,12 @@ class App extends Component {
       const networkId = await web3.eth.net.getId();
       const deployedNetwork = SimpleStorageContract.networks[networkId];
 
-
       if(!deployedNetwork){
         console.log('ooops');
         this.setState({contractError: true});
         return;
       }
-
+      
       const instance = new web3.eth.Contract(
         SimpleStorageContract.abi,
         deployedNetwork && deployedNetwork.address,
