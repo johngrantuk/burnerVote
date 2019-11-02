@@ -24,19 +24,19 @@ self.__precacheManifest = [
     "url": "/burnerVote/static/js/runtime~main.e0abf44e.js"
   },
   {
-    "revision": "a4dcc6b770e8f8b44ab5",
-    "url": "/burnerVote/static/js/main.a4dcc6b7.chunk.js"
+    "revision": "1a34a7f633ad91bc0aaf",
+    "url": "/burnerVote/static/js/main.1a34a7f6.chunk.js"
   },
   {
-    "revision": "4bf02af83df887c20e48",
-    "url": "/burnerVote/static/js/1.4bf02af8.chunk.js"
+    "revision": "3b7daa2493fd99a42a83",
+    "url": "/burnerVote/static/js/1.3b7daa24.chunk.js"
   },
   {
-    "revision": "a4dcc6b770e8f8b44ab5",
-    "url": "/burnerVote/static/css/main.81b7b4c4.chunk.css"
+    "revision": "1a34a7f633ad91bc0aaf",
+    "url": "/burnerVote/static/css/main.31930c23.chunk.css"
   },
   {
-    "revision": "6b5bbcbbf627ed60543f0bb88c0e6efe",
+    "revision": "041c1f12bb908d22f09e5087948df658",
     "url": "/burnerVote/index.html"
   }
 ];
