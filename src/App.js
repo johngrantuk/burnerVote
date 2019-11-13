@@ -64,9 +64,10 @@ class App extends Component {
   async graph(){
 
     console.log('graph()')
-
+    // https://thegraph.com/docs/graphql-api
+    // anonymousDeposits (where: {PropName: "qwwafae"}) {
     const query = `{
-      anonymousDeposits(first: 5) {
+      anonymousDeposits {
         id
         SenderAddr
         ContriValue
@@ -151,7 +152,7 @@ class App extends Component {
             <div class="container-fluid">
 
               <Proposals proposals={this.state.proposals} />
-              <Deposits deposits={this.state.deposits} />
+              <Deposits name={"All"} deposits={this.state.deposits} />
 
 
             </div>

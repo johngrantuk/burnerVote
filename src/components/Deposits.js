@@ -11,7 +11,7 @@ class Deposits extends Component {
 
     return (
       <div>
-        <h2>Deposits</h2>
+        <h4>{this.props.name} Deposits</h4>
         {deposits}
 
       </div>
