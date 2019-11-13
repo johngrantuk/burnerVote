@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import getWeb3 from "./utils/getWeb3";
 import Proposals from './components/Proposals';
+import Deposits from './components/Deposits';
 
 // import "./App.css";
 import "./black-dashboard/assets/css/black-dashboard-react.css";
@@ -29,9 +30,7 @@ class App extends Component {
   state = { storageValue: 0, web3: null, accounts: null, contract: null, proposals: [], deposits: [] };
 
   constructor(props) {
-    console.log('Constructor...');
     super(props);
-    this.addToContract = this.addToContract.bind(this);
   }
 
   componentDidMount = async () => {
@@ -49,22 +48,10 @@ class App extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
-
-      if(!deployedNetwork){
-        console.log('ooops');
-        this.setState({contractError: true});
-        return;
-      }
-
-      const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
-        deployedNetwork && deployedNetwork.address,
-      );
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts, contract: instance, contractAddress: deployedNetwork.address }, this.runExample);
+      this.setState({ web3, accounts });
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -73,29 +60,6 @@ class App extends Component {
       console.error(error);
     }
   };
-
-  runExample = async () => {
-    const { accounts, contract } = this.state;
-
-    // Stores a given value, 5 by default.
-    // await contract.methods.set(5).send({ from: accounts[0] });
-
-    // Get the value from the contract to prove it worked.
-    const response = await contract.methods.get().call();
-
-    // Update state with the result.
-    this.setState({ storageValue: response });
-  };
-
-  async addToContract() {
-    console.log('Adding...');
-
-    var newStorage = this.state.storageValue + 1;
-
-    const response = await this.state.contract.methods.set(newStorage).send({ from: this.state.accounts[0] });
-
-    this.setState({ storageValue: newStorage });
-  }
 
   async graph(){
 
@@ -141,26 +105,6 @@ class App extends Component {
       deposits: anonymousDeposits
     });
 
-
-    var keys = Object.values(result)
-    var keysmap = Object.values(Object.values(keys[0]))[0][0]
-
-    console.log(keysmap)
-    moneymap.set(keysmap.Contrivalue, keysmap.SenderAddr) //hash map woud take care of uniqueness
-    moneymap.set(keysmap.SenderAddr, keysmap.Contrivalue) //hash map woud take care of uniqueness
-
-    proposalissued = Object.values(Object.values(keys[0]))[1][0]
-    dataextra = proposalissued.data
-    deadline = proposalissued.deadline;
-    name = keysmap.PropName;
-    opA = proposalissued.optionAaddr
-    opB = proposalissued.optionBaddr
-    console.log(Object.values(Object.values(keys[0])) )
-    console.log(deadline)
-    console.log(name)
-    console.log(opA)
-    console.log(opB)
-    console.log(deadline)
     console.log('graph() OUT')
   }
 
@@ -205,21 +149,10 @@ class App extends Component {
 
           <div class="content">
             <div class="container-fluid">
-            <h1>BLK Good to Go!</h1>
-              <h3>
-                Fancy display heading
-                <small className="text-muted">With faded secondary text</small>
-              </h3>
 
               <Proposals proposals={this.state.proposals} />
+              <Deposits deposits={this.state.deposits} />
 
-              <h2>Smart Contract Example</h2>
-              <p>
-                Connected to contract at: {this.state.contractAddress}
-              </p>
-
-              <h4>The stored value is: {this.state.storageValue}</h4>
-              <button type="button" class="btn btn-primary" onClick={this.addToContract}>Primary</button>
 
             </div>
           </div>

@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 
 class Proposal extends Component {
 
-  withDrawStake(Commitment){
-      console.log('Withdrawing Stake')
-  }
-
   render() {
-
     /*
     newProposalIssueds(first: 5) {
       id
@@ -19,7 +14,6 @@ class Proposal extends Component {
       optionAaddr
     }
     */
-
     return(
       <div>
         <p>ID: {this.props.proposal.id}</p>
