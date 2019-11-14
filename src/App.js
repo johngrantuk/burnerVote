@@ -39,7 +39,7 @@ class App extends Component {
 
       console.log('Loading graph...');
       await this.graph();
-
+      /*
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
 
@@ -48,10 +48,11 @@ class App extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
+      */
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.
-      this.setState({ web3, accounts });
+      // this.setState({ web3, accounts });
     } catch (error) {
       // Catch any errors for any of the above operations.
       alert(
@@ -63,7 +64,6 @@ class App extends Component {
 
   async graph(){
 
-    console.log('graph()')
     // https://thegraph.com/docs/graphql-api
     // anonymousDeposits (where: {PropName: "qwwafae"}) {
     const query = `{
@@ -72,6 +72,7 @@ class App extends Component {
         SenderAddr
         ContriValue
         PropName
+        Choice
       }
       newProposalIssueds(first: 5) {
         id
@@ -97,8 +98,8 @@ class App extends Component {
       })
     }).then(r => r.json()).then(data => data).catch(error => console.log(error))
 
-    console.log('Result:');
-    console.log(result);
+    // console.log('Result:');
+    // console.log(result);
     var anonymousDeposits = result.data.anonymousDeposits;
     var newProposalIssueds = result.data.newProposalIssueds;
     this.setState({
@@ -121,26 +122,26 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div class="main-panel">
-          <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-            <div class="container-fluid">
-              <div class="navbar-wrapper">
+        <div className="main-panel">
+          <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+            <div className="container-fluid">
+              <div className="navbar-wrapper">
 
-                <a class="navbar-brand" href="#pablo">Dashboard</a>
+                <a className="navbar-brand" href="#pablo">Dashboard</a>
               </div>
 
-              <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="navbar-toggler-icon icon-bar"></span>
-                <span class="navbar-toggler-icon icon-bar"></span>
-                <span class="navbar-toggler-icon icon-bar"></span>
+              <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="sr-only">Toggle navigation</span>
+                <span className="navbar-toggler-icon icon-bar"></span>
+                <span className="navbar-toggler-icon icon-bar"></span>
+                <span className="navbar-toggler-icon icon-bar"></span>
               </button>
 
-              <div class="collapse navbar-collapse justify-content-end">
-                <ul class="navbar-nav">
-                  <li class="nav-item">
-                    <a class="nav-link" href="#pablo">
-                      <i class="tim-icons icon-bell-55"></i>  Notifications
+              <div className="collapse navbar-collapse justify-content-end">
+                <ul className="navbar-nav">
+                  <li className="nav-item">
+                    <a className="nav-link" href="#pablo">
+                      <i className="tim-icons icon-bell-55"></i>  Notifications
                     </a>
                   </li>
                 </ul>
@@ -148,8 +149,8 @@ class App extends Component {
             </div>
           </nav>
 
-          <div class="content">
-            <div class="container-fluid">
+          <div className="content">
+            <div className="container-fluid">
 
               <Proposals proposals={this.state.proposals} />
               <Deposits name={"All"} deposits={this.state.deposits} />
