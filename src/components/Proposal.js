@@ -8,15 +8,14 @@ class Proposal extends Component {
 
 
   componentDidMount = async () => {
-      await this.graph();
+      await this.processVotes();
   };
 
-  async graph(){
-
-    console.log('graph(): ' + this.props.proposal.name)
+  async GetProposalGraphData(ProposalName){
+    console.log('GetProposalGraphData(): ' + ProposalName)
     // https://thegraph.com/docs/graphql-api
     // Gets all deposits for this proposal
-    const query = `{ anonymousDeposits (where: {PropName: "` + this.props.proposal.name + `"}) {
+    const query = `{ anonymousDeposits (where: {PropName: "` + ProposalName + `"}) {
         id
         SenderAddr
         ContriValue
@@ -36,22 +35,20 @@ class Proposal extends Component {
       })
     }).then(r => r.json()).then(data => data).catch(error => console.log(error))
 
-    // console.log('Result:');
-    // console.log(result);
+    return result;
+  }
 
-    if(!result.data)
-      return;
-
-    var anonymousDeposits = result.data.anonymousDeposits;
+  async CalculateVotesBasic(proposalData){
+    var anonymousDeposits = proposalData.data.anonymousDeposits;
 
     var yes = 0;
     var no = 0;
-    var totalDeposits = anonymousDeposits.length;
+    var noDeposits = anonymousDeposits.length;
     var unique = [];
     var values = {};
     var totalValue = 0;
 
-    for(var i = 0;i < totalDeposits;i++){
+    for(var i = 0;i < noDeposits;i++){
 
       if(unique.indexOf(anonymousDeposits[i].SenderAddr) === -1){
         unique.push(anonymousDeposits[i].SenderAddr);
@@ -69,7 +66,7 @@ class Proposal extends Component {
       totalValue += parseFloat(anonymousDeposits[i].ContriValue);
     }
     console.log(this.props.proposal.name)
-    console.log('Total: ' + totalDeposits);
+    console.log('Total: ' + noDeposits);
     console.log('Yes: ' + yes);
     console.log('No: ' + no);
     console.log('No Unique Addresses: ' + unique.length)
@@ -84,6 +81,82 @@ class Proposal extends Component {
       noCount: no,
       uniqueAddresses: unique
     });
+  }
+
+  async GetAddressVotes(proposalData){
+    var anonymousDeposits = proposalData.data.anonymousDeposits;
+    var noDeposits = anonymousDeposits.length;
+    var voters = {};
+    var totalValue = 0;
+
+    // Check all the deposits for proposal
+    for(var i = 0;i < noDeposits;i++){
+
+      var yesValue = 0, noValue = 0;
+
+      if(anonymousDeposits[i].Choice === 'yes'){
+        yesValue = parseFloat(anonymousDeposits[i].ContriValue);
+      } else {
+        noValue = parseFloat(anonymousDeposits[i].ContriValue);
+      }
+
+      // Check if address has already been counted & initialise if not
+      if(voters[anonymousDeposits[i].SenderAddr] === undefined){
+        voters[anonymousDeposits[i].SenderAddr] = { yesTotalValue: yesValue, noTotalValue: noValue };
+      }else{
+        var newYesValue = voters[anonymousDeposits[i].SenderAddr].yesTotalValue + yesValue;
+        var newNoValue = voters[anonymousDeposits[i].SenderAddr].noTotalValue + noValue;
+        voters[anonymousDeposits[i].SenderAddr] = { yesTotalValue: newYesValue, noTotalValue: newNoValue };
+      }
+
+      totalValue += parseFloat(anonymousDeposits[i].ContriValue);
+    }
+    console.log(this.props.proposal.name)
+    console.log('No Deposits: ' + noDeposits);
+    console.log('Total Value: ' + totalValue)
+    console.log('Voters:')
+    console.log(voters)
+
+    this.setState({
+      totalValue: totalValue,
+      voters: voters
+    });
+
+    return voters;
+  }
+
+  async GetQuadraticTotals(voters){
+
+    var yes = 0;
+    var no = 0;
+    for(var key in voters){
+      // skip loop if the property is from prototype
+      if (!voters.hasOwnProperty(key)) continue;
+
+      var voter = voters[key];
+      yes += Math.sqrt(voter.yesTotalValue);
+      no += Math.sqrt(voter.noTotalValue);
+    }
+
+    this.setState({
+      graphLoaded: true,
+      yesCount: yes,
+      noCount: no
+    });
+  }
+
+  async processVotes(){
+
+    var proposalData = await this.GetProposalGraphData(this.props.proposal.name);
+
+    if(!proposalData.data){
+      console.log('MMMhhhh this is weird...')
+      return;
+    }
+
+    var voters = await this.GetAddressVotes(proposalData);
+
+    await this.GetQuadraticTotals(voters);
 
     console.log('graph() OUT')
   }
