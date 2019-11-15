@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import Deposits from './Deposits';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Row, Col } from "reactstrap";
 
 class Proposal extends Component {
 
-  state = { deposits: [], uniqueAddresses: [] };
+  state = { deposits: [], uniqueAddresses: [], graphLoaded: false };
 
 
   componentDidMount = async () => {
@@ -25,8 +24,6 @@ class Proposal extends Component {
         Choice
       }
     }`;
-
-    const results = {}
 
     const result = await fetch('https://api.thegraph.com/subgraphs/name/madhur4444/imgovdynamic', {
       method: 'POST',
@@ -63,7 +60,7 @@ class Proposal extends Component {
         values[anonymousDeposits[i].SenderAddr] += parseFloat(anonymousDeposits[i].ContriValue);
       }
 
-      if(anonymousDeposits[i].Choice == 'yes'){
+      if(anonymousDeposits[i].Choice === 'yes'){
         yes++;
       } else {
         no++;
@@ -81,6 +78,7 @@ class Proposal extends Component {
     console.log(values)
 
     this.setState({
+      graphLoaded: true,
       deposits: anonymousDeposits,
       yesCount: yes,
       noCount: no,
@@ -91,19 +89,51 @@ class Proposal extends Component {
   }
 
   render() {
-    /*
-    newProposalIssueds(first: 5) {
-      id
-      issuer
-      deadline
-      name
-      data
-      optionBaddr
-      optionAaddr
+
+    let chart;
+    if(this.state.graphLoaded){
+      chart =  <ReactMinimalPieChart
+                    animate={false}
+                    animationDuration={500}
+                    animationEasing="ease-out"
+                    cx={50}
+                    cy={50}
+                    data={[
+                      {
+                        color: '#E38627',
+                        title: 'Yes',
+                        value: this.state.yesCount
+                      },
+                      {
+                        color: '#C13C37',
+                        title: 'Two',
+                        value: this.state.noCount
+                      }
+                    ]}
+                    label
+                    labelPosition={50}
+                    labelStyle={{
+                      fill: '#121212',
+                      fontFamily: 'sans-serif',
+                      fontSize: '5px'
+                    }}
+                    lengthAngle={360}
+                    lineWidth={100}
+                    onClick={undefined}
+                    onMouseOut={undefined}
+                    onMouseOver={undefined}
+                    paddingAngle={0}
+                    radius={50}
+                    ratio={1}
+                    rounded={false}
+                    startAngle={0}
+                    style={{
+                      height: '300px'
+                    }}
+                  />
+
     }
 
-    */
-    // <Deposits name={this.props.proposal.name} deposits={this.state.deposits} />
     var noUniqueAdresses = this.state.uniqueAddresses.length;
 
     return(
@@ -124,45 +154,7 @@ class Proposal extends Component {
             <p>uniqueAddresses: {noUniqueAdresses}</p>
           </Col>
           <Col className="col-sm">
-            <ReactMinimalPieChart
-              animate={false}
-              animationDuration={500}
-              animationEasing="ease-out"
-              cx={50}
-              cy={50}
-              data={[
-                {
-                  color: '#E38627',
-                  title: 'Yes',
-                  value: this.state.yesCount
-                },
-                {
-                  color: '#C13C37',
-                  title: 'Two',
-                  value: this.state.noCount
-                }
-              ]}
-              label
-              labelPosition={50}
-              labelStyle={{
-                fill: '#121212',
-                fontFamily: 'sans-serif',
-                fontSize: '5px'
-              }}
-              lengthAngle={360}
-              lineWidth={100}
-              onClick={undefined}
-              onMouseOut={undefined}
-              onMouseOver={undefined}
-              paddingAngle={0}
-              radius={50}
-              ratio={1}
-              rounded={false}
-              startAngle={0}
-              style={{
-                height: '300px'
-              }}
-            />
+            { chart }
           </Col>
         </Row>
 

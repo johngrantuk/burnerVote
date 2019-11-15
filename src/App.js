@@ -1,33 +1,15 @@
 import React, { Component } from "react";
 import Proposals from './components/Proposals';
 import Deposits from './components/Deposits';
+import NavBar from './components/NavBar';
 import "./black-dashboard/assets/css/black-dashboard-react.css";
 import "./black-dashboard/assets/css/nucleo-icons.css";
-import AdminNavbar from "./black-dashboard/components/Navbars/AdminNavbar.jsx";
-import { Container, Alert } from "reactstrap";
 
-var k
-var a
-var red
-var blue
-var name
-var opA
-var opB
-var providerone
-var web3
-var defaultAccount
-var proposalissued
-var deadline
-var moneymap = new Map();
-var dataextra
+
 
 class App extends Component {
 
   state = { storageValue: 0, web3: null, accounts: null, contract: null, proposals: [], deposits: [] };
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount = async () => {
     try {
@@ -64,8 +46,6 @@ class App extends Component {
       }
     }`;
 
-    const results = {}
-
     const result = await fetch('https://api.thegraph.com/subgraphs/name/madhur4444/imgovdynamic', {
       method: 'POST',
       headers: {
@@ -94,31 +74,7 @@ class App extends Component {
     return (
       <div className="App">
         <div className="main-panel">
-          <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-            <div className="container-fluid">
-              <div className="navbar-wrapper">
-
-                <a className="navbar-brand" href="#pablo">Dashboard</a>
-              </div>
-
-              <button className="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="sr-only">Toggle navigation</span>
-                <span className="navbar-toggler-icon icon-bar"></span>
-                <span className="navbar-toggler-icon icon-bar"></span>
-                <span className="navbar-toggler-icon icon-bar"></span>
-              </button>
-
-              <div className="collapse navbar-collapse justify-content-end">
-                <ul className="navbar-nav">
-                  <li className="nav-item">
-                    <a className="nav-link" href="#pablo">
-                      <i className="tim-icons icon-bell-55"></i>  Notifications
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+          <NavBar></NavBar>
 
           <div className="content">
             <div className="container-fluid">
