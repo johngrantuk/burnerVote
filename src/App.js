@@ -35,7 +35,7 @@ class App extends Component {
         PropName
         Choice
       }
-      newProposalIssueds(first: 5) {
+      newProposalIssueds(where: { name_not_contains: "fae" }) {
         id
         issuer
         deadline
