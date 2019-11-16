@@ -27,7 +27,7 @@ class Deposit extends Component {
             <li>
               <a href={'/#/newVote'}>
                 <i className="tim-icons icon-bulb-63"></i>
-                <p>New Vote</p>
+                <p>New Proposal</p>
               </a>
             </li>
 

@@ -83,8 +83,6 @@ class App extends Component {
             <div className="container-fluid">
 
               <Proposals proposals={this.state.proposals} />
-              <Deposits name={"All"} deposits={this.state.deposits} />
-
 
             </div>
           </div>
