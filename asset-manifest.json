@@ -1,15 +1,14 @@
 {
-  "main.css": "/burnerVote/static/css/main.dc36c0c5.chunk.css",
-  "main.js": "/burnerVote/static/js/main.2600e212.chunk.js",
-  "main.js.map": "/burnerVote/static/js/main.2600e212.chunk.js.map",
-  "static/js/1.2c15c869.chunk.js": "/burnerVote/static/js/1.2c15c869.chunk.js",
-  "static/js/1.2c15c869.chunk.js.map": "/burnerVote/static/js/1.2c15c869.chunk.js.map",
+  "main.css": "/burnerVote/static/css/main.31930c23.chunk.css",
+  "main.js": "/burnerVote/static/js/main.8dc3edb0.chunk.js",
+  "main.js.map": "/burnerVote/static/js/main.8dc3edb0.chunk.js.map",
+  "static/js/1.b868bb58.chunk.js": "/burnerVote/static/js/1.b868bb58.chunk.js",
+  "static/js/1.b868bb58.chunk.js.map": "/burnerVote/static/js/1.b868bb58.chunk.js.map",
   "runtime~main.js": "/burnerVote/static/js/runtime~main.e0abf44e.js",
   "runtime~main.js.map": "/burnerVote/static/js/runtime~main.e0abf44e.js.map",
-  "static/media/nucleo-icons.css": "/burnerVote/static/media/nucleo.5987dd12.woff2",
-  "static/media/anime3.png": "/burnerVote/static/media/anime3.bd6820f1.png",
-  "static/css/main.dc36c0c5.chunk.css.map": "/burnerVote/static/css/main.dc36c0c5.chunk.css.map",
+  "static/media/nucleo-icons.css": "/burnerVote/static/media/nucleo.f0b489a5.woff",
+  "static/css/main.31930c23.chunk.css.map": "/burnerVote/static/css/main.31930c23.chunk.css.map",
   "index.html": "/burnerVote/index.html",
-  "precache-manifest.087f5694c418cdb175f449afabbcc93d.js": "/burnerVote/precache-manifest.087f5694c418cdb175f449afabbcc93d.js",
+  "precache-manifest.1c2082709a0f1dfb1f093621b431f837.js": "/burnerVote/precache-manifest.1c2082709a0f1dfb1f093621b431f837.js",
   "service-worker.js": "/burnerVote/service-worker.js"
 }

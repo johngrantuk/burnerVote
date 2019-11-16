@@ -16,27 +16,23 @@ self.__precacheManifest = [
     "url": "/burnerVote/static/media/nucleo.03ef1918.eot"
   },
   {
-    "revision": "bd6820f1a4015e9645e470ea8e7b1501",
-    "url": "/burnerVote/static/media/anime3.bd6820f1.png"
-  },
-  {
     "revision": "e0abf44ebf1703bb6f17",
     "url": "/burnerVote/static/js/runtime~main.e0abf44e.js"
   },
   {
-    "revision": "2600e2124f4fe8d88e60",
-    "url": "/burnerVote/static/js/main.2600e212.chunk.js"
+    "revision": "8dc3edb0b7e65ee7a2dc",
+    "url": "/burnerVote/static/js/main.8dc3edb0.chunk.js"
   },
   {
-    "revision": "2c15c869fa932fbfd293",
-    "url": "/burnerVote/static/js/1.2c15c869.chunk.js"
+    "revision": "b868bb585dcd83081d4f",
+    "url": "/burnerVote/static/js/1.b868bb58.chunk.js"
   },
   {
-    "revision": "2600e2124f4fe8d88e60",
-    "url": "/burnerVote/static/css/main.dc36c0c5.chunk.css"
+    "revision": "8dc3edb0b7e65ee7a2dc",
+    "url": "/burnerVote/static/css/main.31930c23.chunk.css"
   },
   {
-    "revision": "2bdea144e38ba956a31363f56faebcdf",
+    "revision": "844d5ebbfe130ab963b0c02df406637f",
     "url": "/burnerVote/index.html"
   }
 ];
