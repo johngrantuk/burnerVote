@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Proposal from './ProposalQR';
+import Proposal from './ProposalQR.js';
 
 class Proposals extends Component {
 
