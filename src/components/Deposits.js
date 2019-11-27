@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Deposit from './Deposit';
 
 class Deposits extends Component {
-
+  // Default to display all deposits passed as prop.
   render() {
 
     const deposits = this.props.deposits.map(deposit => {
@@ -13,7 +13,6 @@ class Deposits extends Component {
       <div>
         <h4>{this.props.name} Deposits</h4>
         {deposits}
-
       </div>
     )
   }

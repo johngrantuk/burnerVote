@@ -1,3 +1,11 @@
+## BurnSignal
+
+## To Do
+
+VoteHelper.js - Add BrightID check.
+
+NewVote.js - Deadline needs implemented.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

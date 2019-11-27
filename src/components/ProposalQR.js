@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactMinimalPieChart from 'react-minimal-pie-chart';
 import { Row, Col } from "reactstrap";
+import { GetProposalData } from "../utils/GraphHelper";
+import { GetVoteInfo, GetQuadraticTotals } from "../utils/VoteHelper";
 var QRCode = require('qrcode.react');
 
 class Proposal extends Component {
@@ -12,160 +14,27 @@ class Proposal extends Component {
       await this.processVotes();
   };
 
-  async GetProposalGraphData(ProposalName){
-    console.log('GetProposalGraphData(): ' + ProposalName)
-    // https://thegraph.com/docs/graphql-api
-    // Gets all deposits for this proposal
-    const query = `{ anonymousDeposits (where: {PropName: "` + ProposalName + `"}) {
-        id
-        SenderAddr
-        ContriValue
-        PropName
-        Choice
-      }
-    }`;
-
-    const result = await fetch('https://api.thegraph.com/subgraphs/name/madhur4444/imgovdynamic', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        query
-      })
-    }).then(r => r.json()).then(data => data).catch(error => console.log(error))
-
-    return result;
-  }
-
-  async CalculateVotesBasic(proposalData){
-    var anonymousDeposits = proposalData.data.anonymousDeposits;
-
-    var yes = 0;
-    var no = 0;
-    var noDeposits = anonymousDeposits.length;
-    var unique = [];
-    var values = {};
-    var totalValue = 0;
-
-    for(var i = 0;i < noDeposits;i++){
-
-      if(unique.indexOf(anonymousDeposits[i].SenderAddr) === -1){
-        unique.push(anonymousDeposits[i].SenderAddr);
-        values[anonymousDeposits[i].SenderAddr] = parseFloat(anonymousDeposits[i].ContriValue);
-      }else{
-        values[anonymousDeposits[i].SenderAddr] += parseFloat(anonymousDeposits[i].ContriValue);
-      }
-
-      if(anonymousDeposits[i].Choice === 'yes'){
-        yes++;
-      } else {
-        no++;
-      }
-
-      totalValue += parseFloat(anonymousDeposits[i].ContriValue);
-    }
-    console.log(this.props.proposal.name)
-    console.log('Total: ' + noDeposits);
-    console.log('Yes: ' + yes);
-    console.log('No: ' + no);
-    console.log('No Unique Addresses: ' + unique.length)
-    console.log(unique)
-    console.log('Total Value: ' + totalValue)
-    console.log(values)
-
-    this.setState({
-      graphLoaded: true,
-      deposits: anonymousDeposits,
-      yesCount: yes,
-      noCount: no,
-      uniqueAddresses: unique
-    });
-  }
-
-  async GetAddressVotes(proposalData){
-    var anonymousDeposits = proposalData.data.anonymousDeposits;
-    var noDeposits = anonymousDeposits.length;
-    var voters = {};
-    var totalValue = 0;
-
-    // Check all the deposits for proposal
-    for(var i = 0;i < noDeposits;i++){
-
-      var yesValue = 0, noValue = 0;
-
-      if(anonymousDeposits[i].Choice === 'yes'){
-        yesValue = parseFloat(anonymousDeposits[i].ContriValue);
-      } else {
-        noValue = parseFloat(anonymousDeposits[i].ContriValue);
-      }
-
-      // Check if address has already been counted & initialise if not
-      if(voters[anonymousDeposits[i].SenderAddr] === undefined){
-        voters[anonymousDeposits[i].SenderAddr] = { yesTotalValue: yesValue, noTotalValue: noValue };
-      }else{
-        var newYesValue = voters[anonymousDeposits[i].SenderAddr].yesTotalValue + yesValue;
-        var newNoValue = voters[anonymousDeposits[i].SenderAddr].noTotalValue + noValue;
-        voters[anonymousDeposits[i].SenderAddr] = { yesTotalValue: newYesValue, noTotalValue: newNoValue };
-      }
-
-      totalValue += parseFloat(anonymousDeposits[i].ContriValue);
-    }
-    console.log(this.props.proposal.name)
-    console.log('No Deposits: ' + noDeposits);
-    console.log('Total Value: ' + totalValue)
-    console.log('Voters:')
-    console.log(voters)
-
-    this.setState({
-      totalValue: totalValue,
-      voters: voters
-    });
-
-    return voters;
-  }
-
-  async GetQuadraticTotals(voters){
-
-    var yes = 0;
-    var no = 0;
-    var noUniqueAdresses = 0;
-    var totalValue = 0;
-    for(var key in voters){
-      // skip loop if the property is from prototype
-      if (!voters.hasOwnProperty(key)) continue;
-
-      var voter = voters[key];
-      yes += Math.sqrt(voter.yesTotalValue);
-      no += Math.sqrt(voter.noTotalValue);
-      noUniqueAdresses += 1;
-      totalValue = totalValue + voter.yesTotalValue + voter.noTotalValue;
-    }
-
-    this.setState({
-      graphLoaded: true,
-      yesCount: yes,
-      noCount: no,
-      noUniqueAdresses: noUniqueAdresses,
-      totalValue: totalValue
-    });
-  }
-
   async processVotes(){
-
-    var proposalData = await this.GetProposalGraphData(this.props.proposal.name);
+    // Retrieve porposal deposit data from Graph.
+    var proposalData = await GetProposalData(this.props.proposal.name);
 
     if(!proposalData.data){
       console.log('MMMhhhh this is weird...')
       return;
     }
+    // Process all the deposit info for this proposal - BrightID check.
+    var voteInfo = await GetVoteInfo(proposalData);
 
-    var voters = await this.GetAddressVotes(proposalData);
-
-    await this.GetQuadraticTotals(voters);
-
-    console.log('graph() OUT')
+    // Calculate voting info.
+    var proposalQuadraticInfo = await GetQuadraticTotals(voteInfo.voters);
+    
+    this.setState({
+      graphLoaded: true,
+      yesCount: proposalQuadraticInfo.yesCount,
+      noCount: proposalQuadraticInfo.noCount,
+      noUniqueAdresses: proposalQuadraticInfo.noUniqueAdresses,
+      totalValue: proposalQuadraticInfo.totalValue
+    });
   }
 
   render() {

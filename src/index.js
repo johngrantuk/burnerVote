@@ -1,16 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import './index.css';
 import App from './App';
 import NewVote from './components/NewVote';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter, Route } from 'react-router-dom'
-// <App />,
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-)
+
 
 const Profile = ({match}) => (
   <div>
@@ -26,7 +20,6 @@ ReactDOM.render(
         <main>
           <Route exact path="/" component={App} />
           <Route path="/home" component={App} />
-            <Route path="/about" component={About} />
           <Route path="/newVote" component={NewVote} />
           <Route exact path="/profile/:address" component={Profile} />
         </main>

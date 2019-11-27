@@ -4,7 +4,9 @@ import SideBar from './SideBar';
 import getWeb3 from "../utils/getWeb3";
 
 class NewVote extends Component {
-
+  // Allows user to create a new Proposal/Question/Vote/Whatever it's agreed to be called.
+  // Uses hardcoded contract address.
+  // Deadline not currently functioning.
   state = { web3: null, accounts: null, contract: null };
 
   constructor(props) {
@@ -26,10 +28,8 @@ class NewVote extends Component {
 
 
       let address = '0x6936b81d7629378aabddcf882b2a7fdfff1cd962';  // Taken from old repo, assume this is the Ropstein deployed
-      // let address = '0xa26575bab179486100e325fc32250cd20a78a28a';  // Taken from old repo, assume this is the Ropstein deployed
 
       const instance = new web3.eth.Contract(abi, address);
-
 
       // Set web3, accounts, and contract to the state, and then proceed with an
       // example of interacting with the contract's methods.

@@ -5,7 +5,7 @@ import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
 import "./black-dashboard/assets/css/black-dashboard-react.css";
 import "./black-dashboard/assets/css/nucleo-icons.css";
-import { getProposals, getDeposits } from "./utils/GraphHelper";
+import { getProposals } from "./utils/GraphHelper";
 
 
 class App extends Component {
