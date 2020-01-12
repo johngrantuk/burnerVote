@@ -1,32 +1,71 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.frame {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0px;
+
+  position: absolute;
+  width: 600px;
+  height: 803px;
+  left: calc(50% - 600px/2);
+  top: 64px;
 }
 
-.App-link {
-  color: #61dafb;
+.title.proposal {
+  /*font-family: Poppins;*/
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  letter-spacing: 0.10625px;
+  color: #FFFFFF;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.github-detail {
+  /* font-family: Poppins; */
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 13px;
+  color: #FFFFFF;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  padding-top: 16px;
+}
+
+.btn-simple.vote-yes {
+  /* font-family: Poppins; */
+  position: static;
+  left: 2.67%;
+  right: 2.67%;
+  top: 52.38%;
+  bottom: 30.74%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 13px;
+  text-align: center;
+  color: #FFFFFF;
+  border: 1px solid #E14ECA;
+  border-radius: 20px;
+  margin-left: 1px;
+}
+
+.btn-simple.vote-no {
+  /* font-family: Poppins; */
+  position: static;
+  left: 1%;
+  right: 2.67%;
+  top: 76.19%;
+  bottom: 6.93%;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 13px;
+  text-align: center;
+  color: #FFFFFF;
+  border: 1px solid #E14ECA;
+  border-radius: 20px;
+  margin-left: 1px;
 }

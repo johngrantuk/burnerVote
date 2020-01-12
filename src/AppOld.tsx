@@ -30,7 +30,7 @@ class App extends Component {
     return (
       <div className="App">
 
-        <SideBar></SideBar>
+        
 
         <div className="main-panel">
           <NavBar></NavBar>
