@@ -1,13 +1,35 @@
-.frame {
-  display: flex;
-  flex-direction: column;
-  padding: 0px;
 
+.main-container {
+  padding-top: 64px;
+}
+
+.test-jg {
+  max-width: 960px;
+}
+
+
+.jg-nav {
+  height: 64px;
+}
+
+.jg-title {
   position: absolute;
-  width: 600px;
-  height: 803px;
-  left: calc(50% - 600px/2);
-  top: 64px;
+  left: 30px;
+  top: 22px;
+  /* font-family: Poppins; */
+  font-style: normal;
+  font-weight: 300;
+  font-size: 17px;
+  line-height: 25px;
+  letter-spacing: 0.10625px;
+  color: #FFFFFF;
+}
+
+.icon-single-02 {
+  position: absolute;
+
+  top: 22px;
+  right: 44px;
 }
 
 .title.proposal {

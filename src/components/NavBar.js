@@ -4,7 +4,7 @@ class NavBar extends Component {
 
   render() {
     return(
-      <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+      <nav className="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top test-jg">
         <div className="container-fluid">
           <div className="navbar-wrapper">
 

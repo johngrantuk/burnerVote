@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Proposals from './components/Proposals';
 import Deposits from './components/Deposits';
+import JgNavBar from './components/JgNavBar';
 import NavBar from './components/NavBar';
 import SideBar from './components/SideBar';
 import "./black-dashboard/assets/css/black-dashboard-react.css";
@@ -31,12 +32,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Container>
-            <Row>
-              <Col sm="12" md={{ size: 8, offset: 2 }}>
-                TEST
-              </Col>
-            </Row>
+        <NavBar></NavBar>
+        <Container className='main-container'>
+
             <Row>
               <Col sm="12" md={{ size: 8, offset: 2 }}>
                 <div className="card">
